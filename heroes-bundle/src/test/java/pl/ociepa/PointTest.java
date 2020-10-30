@@ -30,4 +30,12 @@ public class PointTest {
         assertEquals(7.0, result);
         assertEquals(8.0, result2);
     }
+
+    @Test
+    void blabla(){
+        Point point = new Point(1,1);
+        Point point2 = new Point(1,1);
+
+        assertEquals(point, point2);
+    }
 }
