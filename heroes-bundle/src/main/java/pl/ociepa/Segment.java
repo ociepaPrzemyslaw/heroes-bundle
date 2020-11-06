@@ -54,4 +54,8 @@ public class Segment {
     public int hashCode() {
         return Objects.hash(startPoint, endPoint);
     }
+
+    void draw(){
+        System.out.println(toString());
+    }
 }
