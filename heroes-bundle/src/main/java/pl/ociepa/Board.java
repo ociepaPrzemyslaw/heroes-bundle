@@ -22,4 +22,7 @@ class Board {
 
     }
 
+    void move(Point aPoint, Point aPoint1) {
+
+    }
 }
