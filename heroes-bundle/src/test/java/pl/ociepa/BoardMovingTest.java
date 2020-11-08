@@ -38,7 +38,7 @@ class BoardMovingTest {
         Creature creatureFromBoard = board.get(0,0);
 
         assertEquals(creature, creatureFromBoard);
-        assertNull(board.get(0,0));
+
     }
 
 }
