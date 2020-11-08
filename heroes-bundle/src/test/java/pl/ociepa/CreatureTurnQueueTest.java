@@ -43,7 +43,7 @@ class CreatureTurnQueueTest {
         assertEquals(c, creatureTurnQueue.getActiveCreature());
         creatureTurnQueue.next();
 
-        //assertEquals(a, creatureTurnQueue.getActiveCreature());
+        assertEquals(a, creatureTurnQueue.getActiveCreature());
 
     }
 
