@@ -22,7 +22,10 @@ class Board {
 
     }
 
-    void move(Point aPoint, Point aPoint1) {
+    void move(Point aSourcePoint, Point aTargetPoint1) {
 
-    }
+        Creature creatureFromBoardSourcePoint = map.get(aSourcePoint);
+        map.remove(aSourcePoint);
+        map.put(aTargetPoint1, creatureFromBoardSourcePoint);
+     }
 }
