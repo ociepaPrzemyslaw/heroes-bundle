@@ -28,4 +28,17 @@ class BoardMovingTest {
         assertNull(board.get(0,0));
         }
 
+
+    @Test
+    void shouldThrowExceptionWhenCreatureTryingToMoveToNotEmpty(){
+
+        board.add(new Point(0,1), new Creature());
+        assertThrows(IllegalArgumentException.class,() ->board.move(new Point(0,0), new Point(0,1)));
+
+        Creature creatureFromBoard = board.get(0,0);
+
+        assertEquals(creature, creatureFromBoard);
+        assertNull(board.get(0,0));
+    }
+
 }
