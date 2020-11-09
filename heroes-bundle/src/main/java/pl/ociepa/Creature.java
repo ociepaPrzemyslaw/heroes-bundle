@@ -11,12 +11,20 @@ public class Creature {
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
         stats = new CreatureStatistic(aName, aAttack, aArmor, aMaxHp, aMoveRange);
+        currentHp = stats.getMaxHp();
     }
 
     void attack(Creature aDefender) {
-        aDefender.getCurrentHp();
+
+        int damageToDeal = this.stats.getAttack() - aDefender.stats.getArmor();
+        if (damageToDeal < 0) {
+            damageToDeal = 0;
+        }
+        aDefender.currentHp = aDefender.currentHp - damageToDeal;
+
     }
 
-    Object getCurrentHp(int aI) {
+    int getCurrentHp() {
+        return currentHp;
     }
 }
