@@ -8,7 +8,15 @@ public class Creature {
     Creature(){
         stats = new CreatureStatistic("DefName", 1,1,10,100);
     }
+
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
         stats = new CreatureStatistic(aName, aAttack, aArmor, aMaxHp, aMoveRange);
+    }
+
+    void attack(Creature aDefender) {
+        aDefender.getCurrentHp();
+    }
+
+    Object getCurrentHp(int aI) {
     }
 }
