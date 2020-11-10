@@ -29,6 +29,10 @@ class Board {
 
     }
 
+    Point get(Creature aCreature){
+        return null;
+    }
+
     void move(Point aSourcePoint, Point aTargetPoint1) {
 
         throwExceptionWhenFieldIsTakenOrIsOutsideMap(aTargetPoint1);
