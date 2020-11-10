@@ -30,7 +30,11 @@ class Board {
     }
 
     Point get(Creature aCreature){
-        return null;
+        return map.keySet().stream().filter(p -> map.get(p).equals(aCreature)).findAny().get();
+    }
+
+    void move(Creature aCreature, Point aTargetPoint){
+        move(get(aCreature), aTargetPoint);
     }
 
     void move(Point aSourcePoint, Point aTargetPoint1) {
