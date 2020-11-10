@@ -1,0 +1,38 @@
+package pl.ociepa;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class GameEngine {
+
+    private final Board board;
+    private final CreatureTurnQueue queue;
+
+
+    GameEngine(List<Creature> aCreatures1, List<Creature> aCreatures2) {
+        board = new Board();
+        putCreaturesToBoard(aCreatures1, aCreatures2);
+        List<Creature> twoSidesCreatures = new ArrayList<>();
+        twoSidesCreatures.addAll(aCreatures1);
+        twoSidesCreatures.addAll(aCreatures2);
+        queue = new CreatureTurnQueue(twoSidesCreatures);
+    }
+
+    void move
+
+    private void putCreaturesToBoard(List<Creature> aCreatures1, List<Creature> aCreatures2) {
+
+        putCreaturesFromOneSideToBoard(aCreatures1, 0);
+
+        putCreaturesFromOneSideToBoard(aCreatures2, board.WIDTH-1);
+
+
+    }
+
+    private void putCreaturesFromOneSideToBoard(List<Creature> aCreatures1, int aAI) {
+        for (int i = 0; i < aCreatures1.size(); i++) {
+            board.add(new Point(aAI, i * 2), (aCreatures1.get(i)));
+        }
+    }
+}
