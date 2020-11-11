@@ -1,6 +1,6 @@
 package pl.ociepa;
 
-public class CreatureStatistic {
+class CreatureStatistic {
 
     final private String name;
     final private int attack;

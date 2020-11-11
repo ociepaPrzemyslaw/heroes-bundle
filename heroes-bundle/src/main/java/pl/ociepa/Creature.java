@@ -1,6 +1,6 @@
 package pl.ociepa;
 
-public class Creature {
+class Creature {
 
     private final CreatureStatistic stats;
     private int currentHp;

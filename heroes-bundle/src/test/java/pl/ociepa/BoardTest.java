@@ -46,4 +46,13 @@ class BoardTest {
 
         assertEquals(creature, creatureFromBoard);
     }
+
+
+    @Test
+    void shouldReturnCorrectlocationForByCreature(){
+        board.add(new Point(5,5), creature);
+        Point resutl = board.get(creature);
+
+        assertEquals(new Point(5,5), resutl);
+    }
 }
