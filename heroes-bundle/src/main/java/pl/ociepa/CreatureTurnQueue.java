@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class CreatureTurnQueue {
+class CreatureTurnQueue {
     private final Collection<Creature> creatures;
     private final Queue<Creature> creatureQueue;
     private Creature activeCreature;
