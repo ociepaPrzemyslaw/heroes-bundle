@@ -7,7 +7,7 @@ class Creature {
     private boolean counterAttackedInThisTurn;
 
     Creature(){
-        stats = new CreatureStatistic("DefName", 1,1,10,100);
+        stats = new CreatureStatistic("defName", 1,1,10,100);
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
