@@ -1,15 +1,39 @@
 package pl.ociepa;
 
-import java.util.Objects;
+import javafx.scene.shape.Line;
 
-public class Segment {
+import java.awt.*;
+import java.util.Objects;
+import javafx.scene.paint.Color;
+
+public class Segment extends Line {
 
     private Point startPoint;
     private Point endPoint;
+    private final Color color;
+    private final double strokeWidth;
 
-    public Segment(Point startPoint, Point endPoint) {
+    public Segment(Point startPoint, Point endPoint, Color aColor, double aStrokeWidth) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
+        this.color = aColor;
+        this.strokeWidth = aStrokeWidth;
+
+        refreshGui();
+    }
+
+    public Segment(Point startPoint, Point endPoint) {
+        this(startPoint,endPoint,Color.BLUE, 5);
+    }
+
+    public void refreshGui() {
+        setStartX(startPoint.getX()*50+50);
+        setStartY(350 - startPoint.getY() *50);
+        setEndX(endPoint.getX()*50+50);
+        setEndY(350 - endPoint.getY() *50);
+
+        setStrokeWidth(strokeWidth);
+        setStroke(color);
     }
 
     public Point getStartPoint() {
@@ -50,10 +74,10 @@ public class Segment {
         return Math.sqrt(diffX*diffX+diffY*diffY);
     }
 
-    @Override
+    /*@Override
     public int hashCode() {
         return Objects.hash(startPoint, endPoint);
-    }
+    }*/
 
     void draw(){
         System.out.println(toString());

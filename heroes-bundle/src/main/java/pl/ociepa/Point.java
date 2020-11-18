@@ -1,8 +1,10 @@
 package pl.ociepa;
 
+import javafx.scene.shape.Line;
+
 import java.util.Objects;
 
-public class Point {
+public class Point extends Line {
 
     private int x;
     private int y;
@@ -13,6 +15,12 @@ public class Point {
         this.y = y;
         distanceToCenter =  Math.sqrt(x*x+y*y);
 
+        setStartX(x*50+50);
+        setStartY(350 - y *50);
+        setEndX(x*50+50);
+        setEndY(350 - y *50);
+
+        setStrokeWidth(5);
     }
 
     public Point(Point copyPoint) { //konstruktor samokopujący

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane fx:controller="pl.ociepa.gui.CordSystemController" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <Line endX="500.0" layoutX="50.0" layoutY="350.0" startY="1.0" />
+      <Line endX="-162.5" endY="-140.0" layoutX="212.0" layoutY="177.0" startX="-162.5" startY="173.5" />
+      <Line endX="-10.0" layoutX="50.0" layoutY="250.0" startX="10.0" />
+      <Line endX="-10.0" layoutX="50.0" layoutY="300.0" startX="10.0" />
+      <Line endX="-10.0" layoutX="50.0" layoutY="200.0" startX="10.0" />
+      <Line endX="-10.0" layoutX="50.0" layoutY="150.0" startX="10.0" />
+      <Line endX="-10.0" layoutX="50.0" layoutY="100.0" startX="10.0" />
+      <Line endY="10.0" layoutX="100.0" layoutY="350.0" startY="-10.0" />
+      <Line endY="10.0" layoutX="150.0" layoutY="350.0" startY="-10.0" />
+      <Line endY="10.0" layoutX="200.0" layoutY="350.0" startY="-10.0" />
+      <Line endY="10.0" layoutX="250.0" layoutY="350.0" startY="-10.0" />
+      <Line endY="10.0" layoutX="300.0" layoutY="350.0" startY="-10.0" />
+   </children>
+</AnchorPane>
