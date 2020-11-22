@@ -57,16 +57,19 @@ public class BattleMapController implements PropertyChangeListener {
     private void refreshGUI() {
         for (int x = 0; x < 20 ; x++) {
             for (int y = 0; y <15 ; y++) {
-                MapTile mapTile = new MapTile();
-                gridMap.add(mapTile,x,y);
+                MapTile rec = new MapTile();
+                gridMap.add(rec,x,y);
 
                 Creature creature = gameEngine.get(x,y);
                 if(creature != null){
-                    mapTile.addCreature(creature.getName());
+                    rec.addCreature(creature.getName());
 
                     if(creature == gameEngine.getActiveCreatures()){
-                        mapTile.setBackground(Color.YELLOW);
+                        rec.setBackground(Color.YELLOW);
                     }
+                }
+                else if (gameEngine.canMove(x,y)){
+                    rec.setBackground(Color.AQUA);
                 }
             }
         }

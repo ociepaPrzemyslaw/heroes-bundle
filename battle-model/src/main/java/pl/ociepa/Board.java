@@ -13,6 +13,10 @@ class Board {
         map = new HashMap<>();
     }
 
+    static boolean canMove(Creature aActiveCreatures, int aX, int aY) {
+        return true;
+    }
+
     void add(Point aPoint, Creature aCreature) {
         throwExceptionWhenFieldIsTakenOrIsOutsideMap(aPoint);
         map.put(aPoint, aCreature);
