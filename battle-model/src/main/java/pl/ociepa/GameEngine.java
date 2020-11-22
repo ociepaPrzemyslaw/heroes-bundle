@@ -1,5 +1,6 @@
 package pl.ociepa;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,7 +9,7 @@ public class GameEngine {
 
     private final Board board;
     private final CreatureTurnQueue queue;
-
+    private final PropertyChangeSupport observerSupport;
 
     public GameEngine(List<Creature> aCreatures1, List<Creature> aCreatures2) {
         board = new Board();
@@ -19,6 +20,7 @@ public class GameEngine {
         queue = new CreatureTurnQueue(twoSidesCreatures);
 
         twoSidesCreatures.forEach(c -> queue.addObserver(c));
+        observerSupport = new PropertyChangeSupport(this);
     }
 
     public void move(Point aTargetPoint){

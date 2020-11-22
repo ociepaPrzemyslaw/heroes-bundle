@@ -46,7 +46,6 @@ public class BattleMapController {
 
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             gameEngine.pass();
-            refreshGUI();
         } );
 
         refreshGUI();
