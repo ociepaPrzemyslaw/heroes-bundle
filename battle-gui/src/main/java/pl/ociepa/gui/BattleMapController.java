@@ -11,10 +11,12 @@ import pl.ociepa.GameEngine;
 import pl.ociepa.Creature;
 
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleMapController {
+public class BattleMapController implements PropertyChangeListener {
 
     @FXML
     private GridPane gridMap;
@@ -43,6 +45,7 @@ public class BattleMapController {
 
     @FXML
     void initialize(){
+        gameEngine.addObserver(GameEngine.CURRENT_CREATURE_CHANGED,this);
 
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             gameEngine.pass();
@@ -69,4 +72,8 @@ public class BattleMapController {
         }
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent aPropertyChangeEvent) {
+        refreshGUI();
+    }
 }

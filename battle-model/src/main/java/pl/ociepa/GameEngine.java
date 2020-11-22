@@ -1,12 +1,14 @@
 package pl.ociepa;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class GameEngine {
 
+    public static final String CURRENT_CREATURE_CHANGED = "CURRENT_CREATURE_CHANGED";
     private final Board board;
     private final CreatureTurnQueue queue;
     private final PropertyChangeSupport observerSupport;
@@ -23,13 +25,30 @@ public class GameEngine {
         observerSupport = new PropertyChangeSupport(this);
     }
 
+    public void addObserver(String aEventType, PropertyChangeListener aObs){
+        observerSupport.addPropertyChangeListener(aEventType, aObs);
+    }
+
+    public void removeObserver(PropertyChangeListener aObs){
+        observerSupport.removePropertyChangeListener(aObs);
+    }
+
+    public void notifyObservers(PropertyChangeEvent aEvent){
+        observerSupport.firePropertyChange(aEvent);
+    }
+
+
+
     public void move(Point aTargetPoint){
         board.move(queue.getActiveCreature(), aTargetPoint);
 
     }
 
     public void pass(){
+        Creature oldActiveCreature = queue.getActiveCreature();
         queue.next();
+        Creature newActiveCreature = queue.getActiveCreature();
+        notifyObservers(new PropertyChangeEvent(this, CURRENT_CREATURE_CHANGED, oldActiveCreature, newActiveCreature));
     }
 
     public void attack(int x, int y){
