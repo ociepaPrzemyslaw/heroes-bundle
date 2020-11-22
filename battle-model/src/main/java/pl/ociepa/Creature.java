@@ -1,13 +1,13 @@
 package pl.ociepa;
 
-class Creature {
+public class Creature {
 
     private final CreatureStatistic stats;
     private int currentHp;
     private boolean counterAttackedInThisTurn;
 
-    Creature(){
-        stats = new CreatureStatistic("DefName", 1,1,10,100);
+    public Creature(){
+        this("DefName", 1,1,10,100);
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
@@ -44,5 +44,21 @@ class Creature {
 
     int getCurrentHp() {
         return currentHp;
+    }
+
+    public String getName(){
+        return stats.getName();
+    }
+
+    void resetCounterFlag() {
+        counterAttackedInThisTurn = false;
+    }
+
+    boolean canCounterAttack() {
+        return !counterAttackedInThisTurn;
+    }
+
+    void update() {
+        counterAttackedInThisTurn = false;
     }
 }

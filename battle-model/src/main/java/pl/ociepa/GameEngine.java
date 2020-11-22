@@ -17,6 +17,8 @@ public class GameEngine {
         twoSidesCreatures.addAll(aCreatures1);
         twoSidesCreatures.addAll(aCreatures2);
         queue = new CreatureTurnQueue(twoSidesCreatures);
+
+        twoSidesCreatures.forEach(c -> queue.addObserver(c));
     }
 
     public void move(Point aTargetPoint){
@@ -45,5 +47,13 @@ public class GameEngine {
         for (int i = 0; i < aCreatures1.size(); i++) {
             board.add(new Point(aAI, i * 2), (aCreatures1.get(i)));
         }
+    }
+
+    public Creature get(int aX, int aY) {
+        return board.get(aX,aY);
+    }
+
+    public Creature getActiveCreatures() {
+        return queue.getActiveCreature();
     }
 }
