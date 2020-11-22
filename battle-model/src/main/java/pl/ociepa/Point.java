@@ -33,4 +33,10 @@ public class Point {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    double distance(Point aPoint) {
+
+
+
+    }
 }

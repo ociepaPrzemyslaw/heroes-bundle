@@ -4,6 +4,7 @@ public class Creature {
 
     private final CreatureStatistic stats;
     private int currentHp;
+
     private boolean counterAttackedInThisTurn;
 
     public Creature(){
@@ -60,5 +61,9 @@ public class Creature {
 
     void update() {
         counterAttackedInThisTurn = false;
+    }
+
+    int getMoveRange() {
+        return stats.getMoveRange();
     }
 }

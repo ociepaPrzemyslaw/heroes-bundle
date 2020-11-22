@@ -79,7 +79,7 @@ public class GameEngine {
     }
 
     public boolean canMove(int aX, int aY) {
-        return Board.canMove(getActiveCreatures(),  aX, aY);
+        return board.canMove(getActiveCreatures(),  aX, aY);
 
     }
 }
