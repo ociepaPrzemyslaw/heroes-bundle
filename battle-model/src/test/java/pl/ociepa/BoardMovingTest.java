@@ -14,6 +14,7 @@ class BoardMovingTest {
     void init(){
         board = new Board();
         creature = new Creature();
+        //creature1 = new Creature("DefName", 1 , 1,10,1);
         board.add(new Point(0,0), creature);
     }
 
@@ -40,7 +41,7 @@ class BoardMovingTest {
     @Test
     void canMoveWhenCreatureHasEnoughtMovePoint(){
 
-        Creature creature = new Creature("DefName", 1 , 1,10,5);
+        Creature creature = new Creature("DefName", 1 , 1,10,1);
         board.add(new Point(5,5), creature);
 
         assertTrue(board.canMove(creature, 6,5));
@@ -52,10 +53,18 @@ class BoardMovingTest {
     @Test
     void cannotMoveWhenCreatureHasNotEnoughtMovePoint(){
 
-        Creature creature = new Creature("DefName", 1 , 1,10,20);
-        board.add(new Point(5,5), creature);
+        Creature creature = new Creature("DefName", 1 , 1,10,1);
+        board.add(new Point(5,5),creature);
 
-        assertFalse(board.canMove(creature, 4,4));
+        assertFalse(board.canMove(creature, 6,6));
+    }
+
+    @Test
+    void cannotMoveWhenTileIsTaken(){
+        Creature creature = new Creature("DefName", 1 , 1,10,10);
+        board.add(new Point(5,5 ), creature);
+
+        assertFalse(board.canMove(creature,0,0));
     }
 
 }

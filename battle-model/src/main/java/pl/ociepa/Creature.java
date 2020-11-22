@@ -8,7 +8,7 @@ public class Creature {
     private boolean counterAttackedInThisTurn;
 
     public Creature(){
-        this("DefName", 1,1,10,100);
+        this("DefName", 1,1,10,10);
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {

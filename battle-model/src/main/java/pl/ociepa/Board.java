@@ -14,14 +14,23 @@ class Board {
     }
 
 
-
     void add(Point aPoint, Creature aCreature) {
         throwExceptionWhenFieldIsOutsideMap(aPoint);
+        throwExceptionIfTitleIsTaken(aPoint);
         map.put(aPoint, aCreature);
     }
 
+    private void throwExceptionIfTitleIsTaken(Point aPoint) {
+        if(isTitleTaken(aPoint))
+            throw new IllegalArgumentException("Title isn't empty");
+    }
+
+    private boolean isTitleTaken(Point aPoint) {
+        return map.containsKey(aPoint);
+    }
+
     private void throwExceptionWhenFieldIsOutsideMap(Point aPoint) {
-        if (aPoint.getY() < 0 || aPoint.getX() > WIDTH || aPoint.getY() < 0 || aPoint.getY() > HEIGHT) {
+        if (aPoint.getX() < 0 || aPoint.getX() > WIDTH || aPoint.getY() < 0 || aPoint.getY() > HEIGHT) {
             throw new IllegalArgumentException(" You are trying to works outside map ");
         }
     }
@@ -53,7 +62,7 @@ class Board {
      }
 
 
-    boolean canMove(Creature aCreature, int aX, int aY) {
+    public boolean canMove(Creature aCreature, int aX, int aY) {
         throwExceptionWhenFieldIsOutsideMap(new Point(aX,aY));
 
         if(tileIsEmpty(aCreature)){
@@ -62,9 +71,7 @@ class Board {
 
         Point currentPosition = get(aCreature);
         double distance = currentPosition.distance(new Point(aX,aY));
-
-        return distance <= aCreature.getMoveRange();
-
+        return distance <= aCreature.getMoveRange() && !isTitleTaken(new Point(aX, aY));
     }
 
     private boolean tileIsEmpty(Creature aCreature) {

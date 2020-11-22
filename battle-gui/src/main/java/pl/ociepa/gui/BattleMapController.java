@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import pl.ociepa.GameEngine;
 import pl.ociepa.Creature;
+import pl.ociepa.Point;
 
 
 import java.beans.PropertyChangeEvent;
@@ -46,6 +47,7 @@ public class BattleMapController implements PropertyChangeListener {
     @FXML
     void initialize(){
         gameEngine.addObserver(GameEngine.CURRENT_CREATURE_CHANGED,this);
+        gameEngine.addObserver(GameEngine.CREATURE_MOVED,this);
 
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             gameEngine.pass();
@@ -69,7 +71,11 @@ public class BattleMapController implements PropertyChangeListener {
                     }
                 }
                 else if (gameEngine.canMove(x,y)){
+                    final int x1 = x;
+                    final int y1 = y;
+
                     rec.setBackground(Color.AQUA);
+                    rec.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.move(new Point(x1,y1)));
                 }
             }
         }
