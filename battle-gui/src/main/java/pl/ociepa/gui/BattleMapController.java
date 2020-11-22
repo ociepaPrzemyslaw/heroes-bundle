@@ -9,12 +9,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import pl.ociepa.GameEngine;
 import pl.ociepa.Creature;
+import pl.ociepa.Point;
 
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleMapController {
+public class BattleMapController implements PropertyChangeListener {
 
     @FXML
     private GridPane gridMap;
@@ -43,10 +46,11 @@ public class BattleMapController {
 
     @FXML
     void initialize(){
+        gameEngine.addObserver(GameEngine.CURRENT_CREATURE_CHANGED,this);
+        gameEngine.addObserver(GameEngine.CREATURE_MOVED,this);
 
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             gameEngine.pass();
-            refreshGUI();
         } );
 
         refreshGUI();
@@ -55,19 +59,30 @@ public class BattleMapController {
     private void refreshGUI() {
         for (int x = 0; x < 20 ; x++) {
             for (int y = 0; y <15 ; y++) {
-                MapTile mapTile = new MapTile();
-                gridMap.add(mapTile,x,y);
+                MapTile rec = new MapTile();
+                gridMap.add(rec,x,y);
 
                 Creature creature = gameEngine.get(x,y);
                 if(creature != null){
-                    mapTile.addCreature(creature.getName());
+                    rec.addCreature(creature.getName());
 
                     if(creature == gameEngine.getActiveCreatures()){
-                        mapTile.setBackground(Color.YELLOW);
+                        rec.setBackground(Color.YELLOW);
                     }
+                }
+                else if (gameEngine.canMove(x,y)){
+                    final int x1 = x;
+                    final int y1 = y;
+
+                    rec.setBackground(Color.AQUA);
+                    rec.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.move(new Point(x1,y1)));
                 }
             }
         }
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent aPropertyChangeEvent) {
+        refreshGUI();
+    }
 }

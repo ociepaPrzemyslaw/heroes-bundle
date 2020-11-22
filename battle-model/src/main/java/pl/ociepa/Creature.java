@@ -4,10 +4,11 @@ public class Creature {
 
     private final CreatureStatistic stats;
     private int currentHp;
+
     private boolean counterAttackedInThisTurn;
 
     public Creature(){
-        this("DefName", 1,1,10,100);
+        this("DefName", 1,1,10,10);
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
@@ -60,5 +61,9 @@ public class Creature {
 
     void update() {
         counterAttackedInThisTurn = false;
+    }
+
+    int getMoveRange() {
+        return stats.getMoveRange();
     }
 }

@@ -13,14 +13,25 @@ class Board {
         map = new HashMap<>();
     }
 
+
     void add(Point aPoint, Creature aCreature) {
-        throwExceptionWhenFieldIsTakenOrIsOutsideMap(aPoint);
+        throwExceptionWhenFieldIsOutsideMap(aPoint);
+        throwExceptionIfTitleIsTaken(aPoint);
         map.put(aPoint, aCreature);
     }
 
-    private void throwExceptionWhenFieldIsTakenOrIsOutsideMap(Point aPoint) {
-        if (aPoint.getY() < 0 || aPoint.getX() > WIDTH || aPoint.getY() < 0 || aPoint.getY() > HEIGHT || map.containsKey(aPoint)) {
-            throw new IllegalArgumentException();
+    private void throwExceptionIfTitleIsTaken(Point aPoint) {
+        if(isTitleTaken(aPoint))
+            throw new IllegalArgumentException("Title isn't empty");
+    }
+
+    private boolean isTitleTaken(Point aPoint) {
+        return map.containsKey(aPoint);
+    }
+
+    private void throwExceptionWhenFieldIsOutsideMap(Point aPoint) {
+        if (aPoint.getX() < 0 || aPoint.getX() > WIDTH || aPoint.getY() < 0 || aPoint.getY() > HEIGHT) {
+            throw new IllegalArgumentException(" You are trying to works outside map ");
         }
     }
 
@@ -39,12 +50,33 @@ class Board {
 
     void move(Point aSourcePoint, Point aTargetPoint1) {
 
-        throwExceptionWhenFieldIsTakenOrIsOutsideMap(aTargetPoint1);
+        throwExceptionWhenFieldIsOutsideMap(aTargetPoint1);
+
+        if (map.containsKey(aTargetPoint1)){
+            throw new IllegalArgumentException("Tile is taken");
+        }
 
         Creature creatureFromBoardSourcePoint = map.get(aSourcePoint);
         map.remove(aSourcePoint);
         map.put(aTargetPoint1, creatureFromBoardSourcePoint);
      }
+
+
+    public boolean canMove(Creature aCreature, int aX, int aY) {
+        throwExceptionWhenFieldIsOutsideMap(new Point(aX,aY));
+
+        if(tileIsEmpty(aCreature)){
+            throw new IllegalArgumentException("Creature isn't in board");
+        }
+
+        Point currentPosition = get(aCreature);
+        double distance = currentPosition.distance(new Point(aX,aY));
+        return distance <= aCreature.getMoveRange() && !isTitleTaken(new Point(aX, aY));
+    }
+
+    private boolean tileIsEmpty(Creature aCreature) {
+        return !map.containsValue(aCreature);
+    }
 
 
 }

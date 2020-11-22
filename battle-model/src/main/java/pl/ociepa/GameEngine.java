@@ -1,14 +1,18 @@
 package pl.ociepa;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class GameEngine {
 
+    public static final String CURRENT_CREATURE_CHANGED = "CURRENT_CREATURE_CHANGED";
+    public static final String CREATURE_MOVED = "CREATURE_MOVED";
     private final Board board;
     private final CreatureTurnQueue queue;
-
+    private final PropertyChangeSupport observerSupport;
 
     public GameEngine(List<Creature> aCreatures1, List<Creature> aCreatures2) {
         board = new Board();
@@ -19,15 +23,35 @@ public class GameEngine {
         queue = new CreatureTurnQueue(twoSidesCreatures);
 
         twoSidesCreatures.forEach(c -> queue.addObserver(c));
+        observerSupport = new PropertyChangeSupport(this);
     }
 
+    public void addObserver(String aEventType, PropertyChangeListener aObs){
+        observerSupport.addPropertyChangeListener(aEventType, aObs);
+    }
+
+    public void removeObserver(PropertyChangeListener aObs){
+        observerSupport.removePropertyChangeListener(aObs);
+    }
+
+    public void notifyObservers(PropertyChangeEvent aEvent){
+        observerSupport.firePropertyChange(aEvent);
+    }
+
+
+
     public void move(Point aTargetPoint){
+        Point oldPosition = board.get(queue.getActiveCreature());
         board.move(queue.getActiveCreature(), aTargetPoint);
+        notifyObservers(new PropertyChangeEvent(this, CREATURE_MOVED,oldPosition, aTargetPoint));
 
     }
 
     public void pass(){
+        Creature oldActiveCreature = queue.getActiveCreature();
         queue.next();
+        Creature newActiveCreature = queue.getActiveCreature();
+        notifyObservers(new PropertyChangeEvent(this, CURRENT_CREATURE_CHANGED, oldActiveCreature, newActiveCreature));
     }
 
     public void attack(int x, int y){
@@ -55,5 +79,10 @@ public class GameEngine {
 
     public Creature getActiveCreatures() {
         return queue.getActiveCreature();
+    }
+
+    public boolean canMove(int aX, int aY) {
+        return board.canMove(getActiveCreatures(),  aX, aY);
+
     }
 }
