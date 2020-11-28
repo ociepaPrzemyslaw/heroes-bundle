@@ -11,7 +11,7 @@ class MapTile extends StackPane {
 
     public MapTile() {
 
-        rectangle = new Rectangle(40, 40, Color.WHITE);
+        rectangle = new Rectangle(45, 45, Color.WHITE);
         rectangle.setStroke(Color.BLACK);
         getChildren().add(rectangle);
     }

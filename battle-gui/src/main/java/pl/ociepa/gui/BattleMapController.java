@@ -1,7 +1,9 @@
 package pl.ociepa.gui;
 
+import com.sun.source.tree.IfTree;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -23,7 +25,10 @@ public class BattleMapController implements PropertyChangeListener {
     private GridPane gridMap;
 
     @FXML
-    Button passButton;
+    private Button passButton;
+
+    @FXML
+    private Label playerOne, playerTwo;
 
     private final GameEngine gameEngine;
 
@@ -48,6 +53,13 @@ public class BattleMapController implements PropertyChangeListener {
     void initialize(){
         gameEngine.addObserver(GameEngine.CURRENT_CREATURE_CHANGED,this);
         gameEngine.addObserver(GameEngine.CREATURE_MOVED,this);
+        gameEngine.addObserver(GameEngine.CREATURE_ATTACKED,this);
+
+
+        playerOne.setText("Player One");
+        playerOne.getStyleClass().add("labelPlayer");
+        playerTwo.setText("Player Two");
+        playerTwo.getStyleClass().add("labelPlayer");
 
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             gameEngine.pass();
@@ -68,6 +80,12 @@ public class BattleMapController implements PropertyChangeListener {
 
                     if(creature == gameEngine.getActiveCreatures()){
                         rec.setBackground(Color.YELLOW);
+                    } else if (gameEngine.canAttack(x,y)) {
+                        final int x1 = x;
+                        final int y1 = y;
+
+                        rec.setBackground(Color.RED);
+                        rec.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.attack(x1,y1));
                     }
                 }
                 else if (gameEngine.canMove(x,y)){

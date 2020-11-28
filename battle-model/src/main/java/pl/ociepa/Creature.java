@@ -1,6 +1,9 @@
 package pl.ociepa;
 
-public class Creature {
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class Creature implements PropertyChangeListener {
 
     private final CreatureStatistic stats;
     private int currentHp;
@@ -8,11 +11,16 @@ public class Creature {
     private boolean counterAttackedInThisTurn;
 
     public Creature(){
-        this("DefName", 1,1,10,10);
+        this("DefName", 1,1,10,10,5);
+    }
+
+    Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange, int aDamage) {
+        stats = new CreatureStatistic(aName, aAttack, aArmor, aMaxHp, aMoveRange, aDamage);
+        currentHp = stats.getMaxHp();
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
-        stats = new CreatureStatistic(aName, aAttack, aArmor, aMaxHp, aMoveRange);
+        stats = new CreatureStatistic(aName, aAttack, aArmor, aMaxHp, aMoveRange, aAttack);
         currentHp = stats.getMaxHp();
     }
 
@@ -65,5 +73,10 @@ public class Creature {
 
     int getMoveRange() {
         return stats.getMoveRange();
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent aPropertyChangeEvent) {
+        counterAttackedInThisTurn = false;
     }
 }

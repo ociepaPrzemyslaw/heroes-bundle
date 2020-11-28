@@ -7,14 +7,16 @@ class CreatureStatistic {
     final private int armor;
     final private int maxHp;
     final private int moveRange;
+    final private int damage;
 
 
-    CreatureStatistic(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
+    CreatureStatistic(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange, int aDamage) {
         name = aName;
         attack = aAttack;
         armor = aArmor;
         maxHp = aMaxHp;
         moveRange = aMoveRange;
+        damage = aDamage;
     }
 
     String getName() {
@@ -35,5 +37,9 @@ class CreatureStatistic {
 
     int getMoveRange() {
         return moveRange;
+    }
+
+    int getDamage() {
+        return damage;
     }
 }
