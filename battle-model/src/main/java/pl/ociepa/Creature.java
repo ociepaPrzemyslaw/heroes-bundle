@@ -1,5 +1,7 @@
 package pl.ociepa;
 
+import com.google.common.collect.Range;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -11,7 +13,7 @@ public class Creature implements PropertyChangeListener {
     private DamageCalculator calculate;
 
     public Creature(){
-        this("DefName", 1,1,10,10,5);
+        this("DefName", 1,1,10,10,100);
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
@@ -19,9 +21,13 @@ public class Creature implements PropertyChangeListener {
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange, int aDamage) {
+        this(aName, aAttack, aArmor, aMaxHp, aMoveRange, Range.closed(aDamage, aDamage), new NewDamageCalculator());
+    }
+
+    Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange, Range<Integer> aDamage, DamageCalculator aCalculate) {
         stats = new CreatureStatistic(aName, aAttack, aArmor, aMaxHp, aMoveRange, aDamage);
         currentHp = stats.getMaxHp();
-        calculate = new DamageCalculator();
+        calculate = aCalculate;
     }
 
     void attack(Creature aDefender) {
@@ -78,5 +84,9 @@ public class Creature implements PropertyChangeListener {
 
     int getArmor() {
         return stats.getArmor();
+    }
+
+    Range<Integer> getDamage() {
+        return stats.getDamage();
     }
 }

@@ -1,5 +1,8 @@
 package pl.ociepa;
 
+
+import com.google.common.collect.Range;
+
 class CreatureStatistic {
 
     final private String name;
@@ -7,10 +10,10 @@ class CreatureStatistic {
     final private int armor;
     final private int maxHp;
     final private int moveRange;
-    final private int damage;
+    final private Range<Integer> damage;
 
 
-    CreatureStatistic(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange, int aDamage) {
+    CreatureStatistic(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange, Range<Integer> aDamage) {
         name = aName;
         attack = aAttack;
         armor = aArmor;
@@ -39,7 +42,7 @@ class CreatureStatistic {
         return moveRange;
     }
 
-    int getDamage() {
+    Range<Integer> getDamage() {
         return damage;
     }
 }
