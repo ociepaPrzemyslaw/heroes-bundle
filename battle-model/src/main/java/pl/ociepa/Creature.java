@@ -13,7 +13,7 @@ public class Creature implements PropertyChangeListener {
     private DamageCalculator calculate;
 
     public Creature(){
-        this("DefName", 1,1,10,10,100);
+        this("DefName", 2,1,10,10,2);
     }
 
     Creature(String aName, int aAttack, int aArmor, int aMaxHp, int aMoveRange) {
@@ -41,7 +41,6 @@ public class Creature implements PropertyChangeListener {
                 currentHp = currentHp - damageTodealInCounterAttack;
                 aDefender.counterAttackedInThisTurn = true;
             }
-
         }
     }
 
@@ -88,5 +87,16 @@ public class Creature implements PropertyChangeListener {
 
     Range<Integer> getDamage() {
         return stats.getDamage();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(stats.getName());
+        sb.append(System.lineSeparator());
+        sb.append(getCurrentHp());
+        sb.append("/");
+        sb.append(stats.getMaxHp());
+        return sb.toString();
     }
 }

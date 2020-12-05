@@ -20,7 +20,7 @@ class CreatureTurnQueue {
     }
 
     void addObserver(PropertyChangeListener aObserver){
-        observers.addPropertyChangeListener(aObserver);
+        observers.addPropertyChangeListener(GameEngine.END_OF_TURN, aObserver);
     }
 
     void removeObserver(PropertyChangeListener aObserver){
